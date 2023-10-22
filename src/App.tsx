@@ -1,33 +1,38 @@
-import { useState } from 'react'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+function Card() {
+    const [hand, setHand] = useState([]); // Состояние для руки карт
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const suits = {
+        1: 'diams', // diams
+        2: 'hearts', // hearts
+        3: 'clubs', // clubs
+        4: 'spades', // spades
+    };
+
+    const generateNewHand = () => {
+        const newHand = [];
+        for (let i = 0; i < 4; i++) {
+            const newRank = Math.floor(Math.random() * 13) + 1; // Генерируем случайное число для ранга
+            const newSuit = Math.floor(Math.random() * 4) + 1; // Генерируем случайное число для масти
+            newHand.push({ rank: newRank, suit: newSuit });
+        }
+        setHand(newHand); // Обновляем состояние руки карт
+    };
+
+    return (
+        <div className="playingCards faceImages">
+            {hand.map((card, index) => (
+                <span key={index} className={`card rank-${card.rank} ${suits[card.suit]}`}>
+          <span className="rank">{card.rank}</span>
+          <span className="suit">{suits[card.suit]}</span>
+        </span>
+            ))}
+
+            <button onClick={generateNewHand}>New hand</button>
+        </div>
+    );
 }
 
-export default App
+export default Card;
