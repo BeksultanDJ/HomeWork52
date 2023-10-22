@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function Card() {
-    const [hand, setHand] = useState([]); // Состояние для руки карт
+    const [hand, setHand] = useState([]);
 
     const rank = {
         1: 'A',
@@ -21,10 +21,10 @@ function Card() {
     }
 
     const suits = {
-        1: 'diams', // diams
-        2: 'hearts', // hearts
-        3: 'clubs', // clubs
-        4: 'spades', // spades
+        1: 'diams',
+        2: 'hearts',
+        3: 'clubs',
+        4: 'spades',
     };
 
     const suitsIc = {
@@ -48,7 +48,7 @@ function Card() {
             } while (newHand.some(card => card.rank === newRank && card.suit === newSuit));
             newHand.push({ rank: newRank, suit: newSuit });
         }
-        setHand(newHand); // Обновляем состояние руки карт
+        setHand(newHand);
     };
 
     return (
