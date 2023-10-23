@@ -7,7 +7,7 @@ function App() {
     const deck = new CardDeck();
 
     const generateNewHand = () => {
-        const newHand = deck.getCards(4);
+        const newHand = deck.getCards(5);
         setHand(newHand);
     };
 

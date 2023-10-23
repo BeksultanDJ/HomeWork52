@@ -4,21 +4,27 @@ export default class CardDeck {
     private deck: Card[] = [];
 
     constructor() {
+        this.initializeDeck();
+    }
+
+    private initializeDeck() {
+        this.deck = [];
+
         const suits = ['diams', 'hearts', 'clubs', 'spades'];
         const suitsIc = ['♦', '♥', '♣', '♠'];
         const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
-        const availableSuits = new Set(suits);
+        for (const suit of suits) {
+            for (const rank of ranks) {
+                const suitIc = suitsIc[suits.indexOf(suit)];
+                const card = new Card(rank, suit, suitIc);
 
-        while (availableSuits.size > 0) {
-            for (const suit of availableSuits) {
-                const ranksWithRepeats: string[] = [...ranks];
-                for (let i = 0; i < 4; i++) {
-                    const randomRankIndex = Math.floor(Math.random() * ranksWithRepeats.length);
-                    const rank = ranksWithRepeats.splice(randomRankIndex, 1)[0];
-                    this.deck.push(new Card(rank, suit, suitsIc[suits.indexOf(suit)]));
+                // Проверяем, есть ли такая карта уже в колоде, и если есть, пересоздаем
+                const existingIndex = this.deck.findIndex(c => c.rank === card.rank && c.suit === card.suit);
+                if (existingIndex !== -1) {
+                    this.deck.splice(existingIndex, 1);
                 }
-                availableSuits.delete(suit);
+                this.deck.push(card);
             }
         }
     }
