@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import CardDeck from './lib/CardDeck';
+import '/lib/Combination.ts';
 
 function App() {
     const [hand, setHand] = useState([]);
